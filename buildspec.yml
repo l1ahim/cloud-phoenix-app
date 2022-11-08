@@ -12,6 +12,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - echo Cleanup
+      - rm -rf .git docker-compose.yml
       - docker pull $REPO_URI:latest || true
       - docker build --cache-from $REPO_URI:latest --tag $REPO_URI:latest --tag $REPO_URI:$IMAGE_TAG .
   post_build:
